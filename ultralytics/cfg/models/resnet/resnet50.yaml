@@ -1,0 +1,20 @@
+# Ultralytics YOLO 🚀, AGPL-3.0 license
+# ResNet50 object detection model with P3-P5 outputs.
+
+# Parameters
+nc: 1000 # number of classes
+
+scales: # model compound scaling constants, i.e. 'model=yolov8n-cls.yaml' will call yolov8-cls.yaml with scale 'n'
+  # [depth, width, max_channels]
+  l: [1.00, 1.00, 1024]
+
+backbone:
+  # [from, repeats, module, args]
+  - [-1, 1, ResNetLayer, [3, 64, 1, True, 1]] # 0
+  - [-1, 1, ResNetLayer, [64, 64, 1, False, 3]] # 1
+  - [-1, 1, ResNetLayer, [256, 128, 2, False, 4]] # 2
+  - [-1, 1, ResNetLayer, [512, 256, 2, False, 6]] # 3
+  - [-1, 1, ResNetLayer, [1024, 512, 2, False, 3]] # 4
+
+head:
+  - [-1, 1, Classify, [nc]] # Classify
